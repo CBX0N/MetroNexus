@@ -16,49 +16,8 @@ resource "kubernetes_secret" "flux_ssh_key" {
     namespace = "flux-system"
   }
   data = {
-    "identity" = file("~/.ssh/flux")
-  }
-}
-
-resource "kubernetes_manifest" "flux_git_repository" {
-  depends_on = [helm_release.flux, kubernetes_secret.flux_ssh_key]
-  manifest = {
-    apiVersion = "source.toolkit.fluxcd.io/v1"
-    kind       = "GitRepository"
-    metadata = {
-      name      = "flux-system"
-      namespace = "flux-system"
-    }
-    spec = {
-      interval = "1m0s"
-      ref = {
-        branch = "main"
-      }
-      secretRef = {
-        name = "flux-system"
-      }
-      url = "ssh://git@github.com/cbx0n/MetroNexus"
-    }
-  }
-}
-
-resource "kubernetes_manifest" "flux_kustomization" {
-  depends_on = [kubernetes_manifest.flux_git_repository]
-  manifest = {
-    apiVersion = "kustomize.toolkit.fluxcd.io/v1"
-    kind       = "Kustomization"
-    metadata = {
-      name      = "kustomizations"
-      namespace = "flux-system"
-    }
-    spec = {
-      interval = "10m0s"
-      path     = "./flux/kustomizations"
-      prune    = true
-      sourceRef = {
-        kind = "GitRepository"
-        name = "flux-system"
-      }
-    }
+    "identity"     = file("~/.ssh/flux")
+    "identity.pub" = file("~/.ssh/flux.pub")
+    "known_hosts"  = "github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
   }
 }

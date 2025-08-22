@@ -49,9 +49,11 @@ module "k3s_cluster" {
   tags               = merge(var.default_labels, { firewall = true })
   network_id         = hcloud_network.net_01.id
   placement_group_id = hcloud_placement_group.placement_a.id
+  depends_on         = [hcloud_firewall.fw01, hcloud_network.net_01, hcloud_network_subnet.snet_01, hcloud_placement_group.placement_a]
 }
 
 resource "local_file" "kubeconfig" {
+  depends_on      = [module.k3s_cluster, cloudflare_dns_record.server_record]
   filename        = "${var.user_home}/.kube/config"
   content         = module.k3s_cluster.kubeconfig
   file_permission = "0600"
