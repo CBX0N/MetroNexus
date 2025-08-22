@@ -1,0 +1,14 @@
+#cloud-config
+users:
+  - name: ${username}
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+    hashed_passwd: ${hashed_password}
+    ssh_authorized_keys:
+      - ${ssh_key}
+
+runcmd:
+  - bash -c 'until ping -c1 google.com &>/dev/null; do systemctl daemon-reload; systemctl restart systemd-networkd; systemctl restart systemd-resolved;echo "Waiting for network..."; sleep 5; done'
+  - curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --cluster-init --disable=traefik --disable-cloud-controller --kubelet-arg cloud-provider=external --token=${cluster_token} --node-ip=${server_ip} --tls-san=${k3s_san}" INSTALL_K3S_SKIP_START=false sh -
