@@ -23,4 +23,4 @@ spec:
         annotations:
           load-balancer.hetzner.cloud/location: fsn1
           load-balancer.hetzner.cloud/use-private-ip: "true"
-          load-balancer.hetzner.cloud/LBName: "fsn1-lb-01"
+          load-balancer.hetzner.cloud/name: "fsn1-lb-01"

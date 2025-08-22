@@ -9,7 +9,7 @@ resource "cloudflare_dns_record" "server_record" {
 data "hcloud_load_balancers" "loadbalancers" {}
 
 locals {
-  loadbalancers = contains(data.hcloud_load_balancers.loadbalancers.load_balancers[*].name, "fsn-lb-01")
+  loadbalancers = contains(data.hcloud_load_balancers.loadbalancers.load_balancers[*].name, "fsn1-lb-01")
 }
 
 resource "cloudflare_dns_record" "cluster_record" {
@@ -19,7 +19,7 @@ resource "cloudflare_dns_record" "cluster_record" {
   type    = "A"
   content = one([
     for lb in data.hcloud_load_balancers.loadbalancers.load_balancers : lb.ipv4
-    if lb.name == "fsn-lb-01"
+    if lb.name == "fsn1-lb-01"
   ])
   ttl = 60
 }
