@@ -73,3 +73,11 @@ variable "default_labels" {
   type    = map(string)
   default = {}
 }
+
+variable "flux_gitRepository" {
+  type = string
+}
+
+variable "cluster_dns_name" {
+  type = string
+}

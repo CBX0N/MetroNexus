@@ -29,7 +29,6 @@ terraform {
   }
 }
 
-# Configure the Hetzner Cloud Provider
 provider "hcloud" {
   token    = var.hcloud_token
   endpoint = "https://api.hetzner.cloud/v1"

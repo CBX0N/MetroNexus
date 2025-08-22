@@ -28,7 +28,7 @@ resource "helm_release" "flux" {
 resource "helm_release" "flux_sync" {
   depends_on       = [helm_release.flux]
   name             = "flux-sync"
-  namespace        = "flux-system"
+  namespace        = helm_release.flux.namespace
   repository       = "https://fluxcd-community.github.io/helm-charts"
   chart            = "flux2-sync"
   create_namespace = true
@@ -37,7 +37,7 @@ resource "helm_release" "flux_sync" {
     yamlencode({
       gitRepository = {
         spec = {
-          url = "ssh://git@github.com/cbx0n/MetroNexus"
+          url = var.flux_gitRepository
           secretRef = {
             name = "flux-system"
           }

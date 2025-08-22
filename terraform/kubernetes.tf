@@ -5,15 +5,14 @@ resource "kubernetes_secret" "hcloud_token" {
   }
   data = {
     "token"   = var.hcloud_token
-    "network" = "net-01"
+    "network" = hcloud_network.net_01.name
   }
 }
 
 resource "kubernetes_secret" "flux_ssh_key" {
-  depends_on = [helm_release.flux]
   metadata {
     name      = "flux-system"
-    namespace = "flux-system"
+    namespace = helm_release.flux.namespace
   }
   data = {
     "identity"     = file("~/.ssh/flux")
@@ -25,7 +24,7 @@ resource "kubernetes_secret" "flux_ssh_key" {
 resource "kubernetes_secret" "cloudflare_api_key" {
   metadata {
     name      = "cloudflare-api-token-secret"
-    namespace = "flux-system"
+    namespace = helm_release.flux.namespace
   }
   data = {
     api-token = var.cloudflare_api_token
