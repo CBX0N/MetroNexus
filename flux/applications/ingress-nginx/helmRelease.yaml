@@ -18,3 +18,9 @@ spec:
         name: ingress-nginx
         namespace: default
       interval: 10m
+  values:
+    controller:
+      service:
+        annotations:
+          load-balancer.hetzner.cloud/location: fsn1
+          load-balancer.hetzner.cloud/use-private-ip: "true"
