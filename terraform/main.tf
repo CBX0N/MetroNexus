@@ -36,7 +36,7 @@ resource "hcloud_firewall" "fw01" {
 }
 
 module "k3s_cluster" {
-  depends_on = [ hcloud_firewall.fw01, hcloud_network_subnet.snet_01 ]
+  depends_on         = [hcloud_firewall.fw01, hcloud_network_subnet.snet_01]
   source             = "./modules/hcloud_k3s_cluster"
   image              = "ubuntu-24.04"
   server_type        = "cax11"
@@ -55,5 +55,23 @@ module "k3s_cluster" {
 resource "local_file" "kubeconfig" {
   filename        = "${var.user_home}/.kube/config"
   content         = module.k3s_cluster.kubeconfig
+  file_permission = "0600"
+}
+
+resource "local_file" "certificate_authority_data" {
+  filename        = "${var.user_home}/.kube/ca.crt"
+  content         = module.k3s_cluster.certificate-authority-data
+  file_permission = "0600"
+}
+
+resource "local_file" "client_key_data" {
+  filename        = "${var.user_home}/.kube/client.key"
+  content         = module.k3s_cluster.client-key-data
+  file_permission = "0600"
+}
+
+resource "local_file" "client_certificate_data" {
+  filename        = "${var.user_home}/.kube/client.crt"
+  content         = module.k3s_cluster.client-certificate-data
   file_permission = "0600"
 }

@@ -39,17 +39,16 @@ provider "cloudflare" {
 }
 
 provider "kubernetes" {
-  client_certificate     = module.k3s_cluster.client-certificate-data
-  client_key             = module.k3s_cluster.client-key-data
-  cluster_ca_certificate = module.k3s_cluster.certificate-authority-data
-  host                   = module.k3s_cluster.server
+  host                   = "https://${var.cluster_dns_name}:6443"
+  client_certificate     = local_file.client_certificate_data.content
+  client_key             = local_file.client_key_data.content
+  cluster_ca_certificate = local_file.certificate_authority_data.content
 }
-
 provider "helm" {
   kubernetes = {
-    client_certificate     = module.k3s_cluster.client-certificate-data
-    client_key             = module.k3s_cluster.client-key-data
-    cluster_ca_certificate = module.k3s_cluster.certificate-authority-data
-    host                   = module.k3s_cluster.server
+    host                   = "https://${var.cluster_dns_name}:6443"
+    client_certificate     = local_file.client_certificate_data.content
+    client_key             = local_file.client_key_data.content
+    cluster_ca_certificate = local_file.certificate_authority_data.content
   }
 }
