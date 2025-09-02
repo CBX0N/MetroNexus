@@ -1,0 +1,167 @@
+certificate:
+  domain: cbxon.co.uk
+  subject:
+    organizations:
+      - cbxon
+  dnsNames:
+    - jellyseerr
+    - radarr
+    - sonarr
+    - jellyfin
+  issuerRef:
+    kind: ClusterIssuer
+    name: cert-cluster-issuer
+
+service:
+  ports:
+  - name: jellyseerr-http
+    port: 5055
+    protocol: TCP
+    targetPort: jellyseerr-http 
+  - name: sonarr-http
+    port: 8989
+    protocol: TCP
+    targetPort: sonarr-http 
+  - name: radarr-http
+    port: 7878
+    protocol: TCP
+    targetPort: radarr-http
+  - name: jellyfin-http
+    port: 8096
+    protocol: TCP
+    targetPort: jellyfin-http
+  - name: jellyfin-https
+    port: 8920
+    protocol: TCP
+    targetPort: jellyfin-https
+  - name: jellyfin-serv
+    port: 1900
+    protocol: UDP
+    targetPort: jellyfin-serv
+  - name: jellyfin-client
+    port: 7359
+    protocol: UDP
+    targetPort: jellyfin-client
+
+ingress:
+  ingessClassName: nginx
+  hosts:
+    - jellyseerr.cbxon.co.uk
+    - radarr.cbxon.co.uk
+    - sonarr.cbxon.co.uk
+    - jellyfin.cbxon.co.uk
+  rules:
+    - host: jellyseerr.cbxon.co.uk
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: mediastack
+              port:
+                number: 5055
+    - host: radarr.cbxon.co.uk
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: mediastack
+              port:
+                number: 7878
+    - host: sonarr.cbxon.co.uk
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: mediastack
+              port:
+                number: 8989
+    - host: jellyfin.cbxon.co.uk
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: mediastack
+              port:
+                number: 8096
+
+jellyfin:
+  name: jellyfin
+  image: jellyfin/jellyfin
+  replicaCount: 1
+  volumes:
+  resources:
+    limits:
+      cpu: 1
+  env:
+    - name: PUID
+      value: "1000"
+    - name: PGID
+      value: "1000"
+    - name: TZ
+      value: "Etc/UTC"
+  volume:
+  volumeMounts:
+  ports:
+    - containerPort: 8096
+      name: jellyfin-http
+    - containerPort: 8920
+      name: jellyfin-https
+    - containerPort: 1900
+      name: jellyfin-serv
+      protocol: UDP
+    - containerPort: 7359
+      name: jellyfin-client
+      protocol: UDP
+
+manager:
+  replicaCount: 1
+  sonarr:
+    enabled: true
+    name: sonarr
+    image: lscr.io/linuxserver/sonarr:latest
+    ports:
+      - containerPort: 8989
+        name: sonarr-http
+    env:
+      - name: PUID
+        value: "1000"
+      - name: PGID
+        value: "1000"
+      - name: TZ
+        value: "Etc/UTC"
+  radarr:
+    enabled: true
+    name: radarr
+    image: lscr.io/linuxserver/radarr:latest
+    ports:
+      - containerPort: 7878
+        name: radarr-http
+    env:
+      - name: PUID
+        value: "1000"
+      - name: PGID
+        value: "1000"
+      - name: TZ
+        value: "Etc/UTC"
+  jellyseerr:
+    enabled: true
+    name: jellyseerr
+    image: ghcr.io/fallenbagel/jellyseerr:latest
+    ports:
+      - containerPort: 5055
+        name: jellyseerr-http
+    env:
+      - name: PUID
+        value: "1000"
+      - name: PGID
+        value: "1000"
+      - name: TZ
+        value: "Etc/UTC"

@@ -21,10 +21,16 @@ resource "kubernetes_secret" "flux_ssh_key" {
   }
 }
 
+resource "kubernetes_namespace" "cert_manager" {
+  metadata {
+    name = "cert-manager"
+  }
+}
+
 resource "kubernetes_secret" "cloudflare_api_key" {
   metadata {
     name      = "cloudflare-api-token-secret"
-    namespace = helm_release.flux.namespace
+    namespace = kubernetes_namespace.cert_manager.metadata[0].name
   }
   data = {
     api-token = var.cloudflare_api_token
