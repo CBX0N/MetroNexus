@@ -11,8 +11,7 @@ spec:
   interval: 10m
   chart:
     spec:
-      chart: mediastack
-      path: ./flux/applications/mediastack
+      path: ./helm/mediastack
       sourceRef:
         kind: GitRepository
         name: flux-sync
