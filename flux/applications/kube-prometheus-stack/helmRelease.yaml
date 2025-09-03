@@ -5,6 +5,9 @@ metadata:
   name: kube-prometheus-stack
   namespace: default
 spec:
+  install:
+    createNamespace: true
+  targetNamespace: kube-prometheus-stack
   interval: 10m
   chart:
     spec:
@@ -15,9 +18,6 @@ spec:
         name: kube-prometheus-stack
         namespace: default
       interval: 10m
-      install:
-        createNamespace: true
-      targetNamespace: kube-prometheus-stack
   values:
     grafana:
       ingress:
