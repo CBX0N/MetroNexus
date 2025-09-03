@@ -34,7 +34,7 @@ spec:
           - mountPath: /temp
             name: guacamoledb-init
         command: ["/bin/bash"]
-        args: ["-c","/opt/guacamole/bin/initdb.sh --postgresql > /temp/initdb.sql"] 
+        args: ["-c",'"/opt/guacamole/bin/initdb.sh --postgresql > /temp/initdb.sql"'] 
       containers:
       - image: postgres:14
         name: guacamoledb
