@@ -25,7 +25,7 @@ spec:
         emptyDir:
           sizeLimit: 10Gi
       initContainers:
-      - image: guacamole/guacamole:1.6.0@sha256:50484043eadd8d9562053940c0ed523dbddaf9086c370127b2f4acabb8bddddc
+      - image: guacamole/guacamole:1.6.0
         name: guacamoledb-init
         env:
           - name: GUACD_HOSTNAME
@@ -67,7 +67,7 @@ spec:
             memory: 50Mi
         ports:
           - containerPort: 4822
-      - image: guacamole/guacamole:1.6.0@sha256:50484043eadd8d9562053940c0ed523dbddaf9086c370127b2f4acabb8bddddc
+      - image: guacamole/guacamole:1.6.0
         name: guacamole
         resources:
           limits:
