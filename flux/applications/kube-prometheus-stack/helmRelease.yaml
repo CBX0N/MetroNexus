@@ -9,13 +9,14 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: "71.2.0"
+      version: "77.5.0"
       sourceRef:
         kind: HelmRepository
         name: kube-prometheus-stack
         namespace: default
       interval: 10m
-      createNamespace: true
+      install:
+        createNamespace: true
       targetNamespace: kube-prometheus-stack
   values:
     grafana:
