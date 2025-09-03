@@ -117,7 +117,7 @@ spec:
   timeout: 5m
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: flux-sync
     namespace: flux-system
   path: ./flux/applications/kube-prometheus-stack
   prune: true
