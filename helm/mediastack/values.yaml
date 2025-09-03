@@ -165,3 +165,62 @@ manager:
         value: "1000"
       - name: TZ
         value: "Etc/UTC"
+
+indexer:
+  replicaCount: 1
+  flaresolverr:
+    enabled: true
+    name: flaresolverr
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    ports:
+      - containerPort: 8191
+        name: flaresolv-http
+    env:
+      - name: TZ
+        value: "Europe/London"
+  prowlarr:
+    enabled: true
+    name: prowlarr
+    image: lscr.io/linuxserver/prowlarr:latest
+    ports:
+      - containerPort: 9696
+        name: prowlarr-http
+    env:
+      - name: PUID
+        value: "1000"
+      - name: PGID
+        value: "1000"
+      - name: TZ
+        value: "Etc/UTC"
+  iptables:
+    enabled: true
+    name: iptables
+    image: ghcr.io/cbx0n/iptables-sidecar:v1.8
+    securityContext:
+      privileged: true
+      capabilities:
+        add: ["NET_ADMIN"]
+  gluetun:
+    enabled: true
+    name: gluetun
+    image: qmcgaw/gluetun:latest
+    ports:
+      - containerPort: 9999
+        name: gluetun-health
+    securityContext:
+      privileged: true
+      capabilities:
+        add: ["NET_ADMIN"]
+    env:
+      - name: VPN_SERVICE_PROVIDER
+        value: "custom"
+      - name: VPN_TYPE
+        value: "wireguard"
+      - name: TZ
+        value: "Europe/London"
+      - name: DOT
+        value: "off"
+      - name: HEALTH_SERVER_ADDRESS
+        value: "0.0.0.0:9999"
+      - name: DNS_ADDRESS
+        value: "10.43.0.10"

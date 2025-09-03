@@ -36,7 +36,7 @@ resource "hcloud_firewall" "fw01" {
 }
 
 module "k3s_cluster" {
-  depends_on         = [hcloud_firewall.fw01, hcloud_network_subnet.snet_01]
+  depends_on         = [hcloud_network_subnet.snet_01]
   source             = "./modules/hcloud_k3s_cluster"
   image              = "ubuntu-24.04"
   server_type        = "cax11"

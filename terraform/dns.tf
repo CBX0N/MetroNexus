@@ -25,33 +25,33 @@ resource "cloudflare_dns_record" "cluster_record" {
 }
 
 resource "cloudflare_dns_record" "radarr" {
-  name     = join(".", ["radarr", var.cloudflare_domain])
-  zone_id  = var.cloudflare_dns_zone_id
-  type     = "CNAME"
-  content  = cloudflare_dns_record.cluster_record[0].name
-  ttl      = 1
+  name    = join(".", ["radarr", var.cloudflare_domain])
+  zone_id = var.cloudflare_dns_zone_id
+  type    = "CNAME"
+  content = cloudflare_dns_record.cluster_record[0].name
+  ttl     = 1
 }
 
 resource "cloudflare_dns_record" "sonarr" {
-  name     = join(".", ["sonarr", var.cloudflare_domain])
-  zone_id  = var.cloudflare_dns_zone_id
-  type     = "CNAME"
-  content  = cloudflare_dns_record.cluster_record[0].name
-  ttl      = 1
+  name    = join(".", ["sonarr", var.cloudflare_domain])
+  zone_id = var.cloudflare_dns_zone_id
+  type    = "CNAME"
+  content = cloudflare_dns_record.cluster_record[0].name
+  ttl     = 1
 }
 
 resource "cloudflare_dns_record" "jellyfin" {
-  name     = join(".", ["jellyfin", var.cloudflare_domain])
-  zone_id  = var.cloudflare_dns_zone_id
-  type     = "CNAME"
-  content  = cloudflare_dns_record.cluster_record[0].name
-  ttl      = 1
+  name    = join(".", ["jellyfin", var.cloudflare_domain])
+  zone_id = var.cloudflare_dns_zone_id
+  type    = "CNAME"
+  content = cloudflare_dns_record.cluster_record[0].name
+  ttl     = 1
 }
 
 resource "cloudflare_dns_record" "jellyseerr" {
-  name     = join(".", ["jellyseerr", var.cloudflare_domain])
-  zone_id  = var.cloudflare_dns_zone_id
-  type     = "CNAME"
-  content  = cloudflare_dns_record.cluster_record[0].name
-  ttl      = 1
+  name    = join(".", ["jellyseerr", var.cloudflare_domain])
+  zone_id = var.cloudflare_dns_zone_id
+  type    = "CNAME"
+  content = cloudflare_dns_record.cluster_record[0].name
+  ttl     = 1
 }
