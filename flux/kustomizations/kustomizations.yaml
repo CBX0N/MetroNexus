@@ -106,7 +106,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: default
 spec:
-  suspend: true
+  suspend: false
   dependsOn:
     - name: ingress-nginx
     - name: cert-manager
