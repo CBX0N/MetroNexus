@@ -12,7 +12,7 @@ prowlarr:
   volumes:
     - name: rules
       configMap:
-        configMapName: indexer-ipconf
+        name: indexer-ipconf
   iptables:
     enabled: true
     image: ghcr.io/cbx0n/iptables:0.1.0
