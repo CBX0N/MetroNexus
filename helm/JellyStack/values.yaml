@@ -13,7 +13,7 @@ prowlarr:
     - name: rules
       configMap:
         name: indexer-ipconf
-  iptables:
+  sidecar:
     enabled: true
     image: ghcr.io/cbx0n/iptables:0.1.0
     securityContext:
