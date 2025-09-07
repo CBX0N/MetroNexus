@@ -7,6 +7,9 @@ radarr:
 flaresolverr:
   enabled: true
 
+prowlarr:
+  enabled: true
+
 gluetun:
   enabled: true
   env:
