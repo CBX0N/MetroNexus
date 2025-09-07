@@ -53,5 +53,8 @@ tolerations: []
 
 affinity: {}
 
-iptables:
+sidecar:
   enabled: false
+  image: ""
+  securityContext: {}
+  volumeMounts: []

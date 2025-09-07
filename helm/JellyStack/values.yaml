@@ -9,8 +9,21 @@ flaresolverr:
 
 prowlarr:
   enabled: true
+  volumes:
+    - name: rules
+      configMap:
+        configMapName: indexer-ipconf
   iptables:
     enabled: true
+    image: ghcr.io/cbx0n/iptables:0.1.0
+    securityContext:
+      privileged: true
+      capabilities:
+        add: ["NET_ADMIN"]
+    volumeMounts:
+    - name: rules
+      mountPath: /rules
+      readOnly: true
 
 gluetun:
   enabled: true
