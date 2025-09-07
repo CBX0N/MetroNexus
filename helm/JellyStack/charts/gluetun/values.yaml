@@ -1,0 +1,57 @@
+replicaCount: 1
+
+image:
+  repository: qmcgaw/gluetun
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+
+securityContext:
+  privileged: true
+  capabilities:
+    add: ["NET_ADMIN"]
+
+service:
+  enabled: false
+  port: 9999
+  type: ClusterIP
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
+
+resources: {}
+
+livenessProbe: {}
+readinessProbe:
+  httpGet:
+    port: 9999
+    path: /v1/health
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+volumes: 
+  - name: wg-conf
+    secret:
+      secretName: wg-conf
+
+volumeMounts:
+  - name: wg-conf
+    mountPath: gluetun/wireguard/
+    readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

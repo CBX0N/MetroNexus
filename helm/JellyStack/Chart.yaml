@@ -1,0 +1,10 @@
+apiVersion: v2
+name: JellyStack
+version: 0.1.0
+dependencies:
+  - name: flaresolverr
+    version: 0.1.0
+    repository: "file://charts/flaresolverr"
+  - name: gluetun
+    version: 0.1.0
+    repository: "file://charts/gluetun"
