@@ -1,4 +1,14 @@
+sonarr:
+  enabled: true
+  
+radarr:
+  enabled: true
+
+flaresolverr:
+  enabled: true
+
 gluetun:
+  enabled: true
   env:
     - name: VPN_SERVICE_PROVIDER
       value: "custom"

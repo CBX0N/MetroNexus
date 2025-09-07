@@ -5,6 +5,16 @@ dependencies:
   - name: flaresolverr
     version: 0.1.0
     repository: "file://charts/flaresolverr"
+    condition: flaresolverr.enabled
   - name: gluetun
     version: 0.1.0
     repository: "file://charts/gluetun"
+    condition: gluetun.enabled
+  - name: sonarr
+    version: 0.1.0
+    repository: "file://charts/sonarr"
+    condition: sonarr.enabled
+  - name: radarr
+    version: 0.1.0
+    repository: "file://charts/radarr"
+    condition: radarr.enabled
