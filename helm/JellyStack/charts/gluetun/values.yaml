@@ -8,6 +8,22 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+env:
+  - name: VPN_SERVICE_PROVIDER
+    value: "custom"
+  - name: VPN_PORT_FORWARDING_PROVIDER
+    value: "protonvpn"
+  - name: VPN_TYPE
+    value: "wireguard"
+  - name: VPN_PORT_FORWARDING
+    value: "on"
+  - name: TZ
+    value: "Europe/London"
+  - name: DOT
+    value: "off"
+  - name: HEALTH_SERVER_ADDRESS
+    value: "0.0.0.0:9999"  
+
 podAnnotations: {}
 podLabels: {}
 
