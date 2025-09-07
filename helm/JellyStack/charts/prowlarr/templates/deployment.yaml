@@ -30,6 +30,19 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
+      {{- if .Values.iptables.enabled }}
+        - name: iptables-sidecar
+          image: ghcr.io/cbx0n/iptables:0.1.0
+          restartPolicy: Always
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["NET_ADMIN"]
+          volumeMounts:
+          - name: rules
+            mountPath: /rules
+            readOnly: true
+        {{- end }}
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
           securityContext:

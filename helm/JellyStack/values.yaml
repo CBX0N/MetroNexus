@@ -9,6 +9,8 @@ flaresolverr:
 
 prowlarr:
   enabled: true
+  iptables:
+    enabled: true
 
 gluetun:
   enabled: true
