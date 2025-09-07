@@ -8,21 +8,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-env:
-  - name: VPN_SERVICE_PROVIDER
-    value: "custom"
-  - name: VPN_PORT_FORWARDING_PROVIDER
-    value: "protonvpn"
-  - name: VPN_TYPE
-    value: "wireguard"
-  - name: VPN_PORT_FORWARDING
-    value: "on"
-  - name: TZ
-    value: "Europe/London"
-  - name: DOT
-    value: "off"
-  - name: HEALTH_SERVER_ADDRESS
-    value: "0.0.0.0:9999"  
+env: {}
 
 podAnnotations: {}
 podLabels: {}
@@ -55,16 +41,13 @@ readinessProbe:
     path: /v1/health
   initialDelaySeconds: 15
   periodSeconds: 10
+lifecycle:
+  postStart:
+    exec:
+      command: ["/bin/sh", "-c", "(ip rule del table 51820; ip -6 rule del table 51820) || true"]
 
-volumes: 
-  - name: wg-conf
-    secret:
-      secretName: wg-conf
-
-volumeMounts:
-  - name: wg-conf
-    mountPath: gluetun/wireguard/
-    readOnly: true
+volumes: []
+volumeMounts: []
 
 nodeSelector: {}
 
