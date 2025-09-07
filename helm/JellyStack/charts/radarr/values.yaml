@@ -19,7 +19,7 @@ securityContext: {}
 
 service:
   enabled: true
-  port: 8989
+  port: 7878
   type: ClusterIP
 
 ingress:
