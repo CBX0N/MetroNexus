@@ -42,6 +42,13 @@ gluetun:
       value: "off"
     - name: HEALTH_SERVER_ADDRESS
       value: "0.0.0.0:9999"
+    - name: VPN_INPUT_PORTS
+      value: "0:65535"
+    - name: VPN_OUTPUT_PORTS
+      value: "0:65535"
+    - name: FIREWALL
+      value: "off"   # (optional) lets you manage iptables yourself
+
 
   volumes: 
     - name: wg-conf
