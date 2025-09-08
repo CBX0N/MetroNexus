@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ingress-nginx
+  name: infrastructure
   namespace: default
 spec:
   suspend: false
@@ -15,13 +15,13 @@ spec:
     kind: GitRepository
     name: flux-sync
     namespace: flux-system
-  path: ./flux/applications/ingress-nginx
+  path: ./kustomization/infrastructure/
   prune: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cert-manager
+  name: applications
   namespace: default
 spec:
   suspend: false
@@ -34,90 +34,7 @@ spec:
     kind: GitRepository
     name: flux-sync
     namespace: flux-system
-  path: ./flux/applications/cert-manager/controller
+  path: ./kustomization/applications/
   prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: certs
-  namespace: default
-spec:
   dependsOn:
-    - name: cert-manager
-  suspend: false
-  force: false
-  wait: true
-  interval: 30s
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-sync
-    namespace: flux-system
-  path: ./flux/applications/cert-manager/certs
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: mediastack
-  namespace: default
-spec:
-  dependsOn:
-    - name: cert-manager
-  suspend: false
-  force: false
-  wait: true
-  interval: 30s
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-sync
-    namespace: flux-system
-  path: ./flux/applications/mediastack
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: guacamole
-  namespace: default
-spec:
-  dependsOn:
-    - name: cert-manager
-  suspend: false
-  force: false
-  wait: true
-  interval: 30s
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-sync
-    namespace: flux-system
-  path: ./flux/applications/guacamole
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kube-prometheus-stack
-  namespace: default
-spec:
-  suspend: false
-  dependsOn:
-    - name: ingress-nginx
-    - name: cert-manager
-  force: false
-  wait: true
-  interval: 30s
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-sync
-    namespace: flux-system
-  path: ./flux/applications/kube-prometheus-stack
-  prune: true
+    - name: infrastructure

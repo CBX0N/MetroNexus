@@ -1,0 +1,18 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: guacamole
+  namespace: default
+spec:
+  suspend: false
+  force: false
+  wait: true
+  interval: 30s
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-sync
+    namespace: flux-system
+  path: ./flux/applications/guacamole
+  prune: true
