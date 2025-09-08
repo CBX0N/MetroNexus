@@ -15,7 +15,7 @@ spec:
     kind: GitRepository
     name: flux-sync
     namespace: flux-system
-  path: ./flux/kustomization/infrastructure/
+  path: "./flux/kustomization/infrastructure/"
   prune: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -34,7 +34,7 @@ spec:
     kind: GitRepository
     name: flux-sync
     namespace: flux-system
-  path: ./flux/kustomization/applications/
+  path: "./flux/kustomization/applications/"
   prune: true
   dependsOn:
     - name: infrastructure
