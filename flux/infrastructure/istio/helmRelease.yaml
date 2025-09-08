@@ -41,6 +41,8 @@ spec:
   values:
     cniBinDir: /var/lib/rancher/k3s/data/current/bin/
     cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+    global:
+      platform: k3s
     logLevel: info
     excludeNamespaces:
       - istio-system
