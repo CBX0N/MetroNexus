@@ -43,6 +43,7 @@ spec:
     cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
     global:
       platform: k3s
+    profile: ambient
     logLevel: info
     excludeNamespaces:
       - istio-system
@@ -70,9 +71,33 @@ spec:
     - name: istio-base
     - name: istio-cni
   values:
+    profile: ambient
     global:
       cni:
         enabled: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: istio-ztunnel
+  namespace: default
+spec:
+  install:
+    createNamespace: true
+  targetNamespace: istio-system
+  interval: 10m
+  chart:
+    spec:
+      chart: ztunnel
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: default
+      interval: 10m
+  dependsOn:
+    - name: istio-base
+    - name: istio-cni
+    - name: istio-istiod
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
