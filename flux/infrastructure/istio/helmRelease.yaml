@@ -121,7 +121,3 @@ spec:
     - name: istio-base
     - name: istio-cni
     - name: istio-istiod
-  values:
-    gateways:
-      istio-egressgateway:
-        enabled: true
