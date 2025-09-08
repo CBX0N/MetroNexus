@@ -59,6 +59,10 @@ spec:
       interval: 10m
   dependsOn:
     - name: istio-base
+  values:
+    profile: ambient
+    cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+    cniBinDir: /var/lib/rancher/k3s/data/current/bin/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
