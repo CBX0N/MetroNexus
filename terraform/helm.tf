@@ -3,6 +3,7 @@ resource "helm_release" "hccm" {
   name            = "hccm"
   repository      = "https://charts.hetzner.cloud"
   chart           = "hcloud-cloud-controller-manager"
+  namespace       = "kube-system"
   cleanup_on_fail = true
   set = [
     {

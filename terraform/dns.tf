@@ -25,6 +25,7 @@ resource "cloudflare_dns_record" "cluster_record" {
 }
 
 resource "cloudflare_dns_record" "radarr" {
+  count   = local.loadbalancers ? 1 : 0
   name    = join(".", ["radarr", var.cloudflare_domain])
   zone_id = var.cloudflare_dns_zone_id
   type    = "CNAME"
@@ -33,6 +34,7 @@ resource "cloudflare_dns_record" "radarr" {
 }
 
 resource "cloudflare_dns_record" "sonarr" {
+  count   = local.loadbalancers ? 1 : 0
   name    = join(".", ["sonarr", var.cloudflare_domain])
   zone_id = var.cloudflare_dns_zone_id
   type    = "CNAME"
@@ -41,6 +43,7 @@ resource "cloudflare_dns_record" "sonarr" {
 }
 
 resource "cloudflare_dns_record" "jellyfin" {
+  count   = local.loadbalancers ? 1 : 0
   name    = join(".", ["jellyfin", var.cloudflare_domain])
   zone_id = var.cloudflare_dns_zone_id
   type    = "CNAME"
@@ -49,6 +52,7 @@ resource "cloudflare_dns_record" "jellyfin" {
 }
 
 resource "cloudflare_dns_record" "jellyseerr" {
+  count   = local.loadbalancers ? 1 : 0
   name    = join(".", ["jellyseerr", var.cloudflare_domain])
   zone_id = var.cloudflare_dns_zone_id
   type    = "CNAME"

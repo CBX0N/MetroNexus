@@ -15,7 +15,7 @@ prowlarr:
         name: indexer-ipconf
   sidecar:
     enabled: true
-    image: ghcr.io/cbx0n/iptables:0.1.0
+    image: ghcr.io/cbx0n/iptables:0.1.1
     securityContext:
       privileged: true
       capabilities:
