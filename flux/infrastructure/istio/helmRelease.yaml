@@ -21,27 +21,6 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: istio-istiod
-  namespace: default
-spec:
-  install:
-    createNamespace: true
-  targetNamespace: istio-system
-  interval: 10m
-  chart:
-    spec:
-      chart: istiod
-      sourceRef:
-        kind: HelmRepository
-        name: istio
-        namespace: default
-      interval: 10m
-  dependsOn:
-    - name: istio-base
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
   name: istio-cni
   namespace: default
 spec:
@@ -60,9 +39,39 @@ spec:
   dependsOn:
     - name: istio-base
   values:
-    profile: ambient
+    cniBinDir: /var/lib/rancher/k3s/data/current/bin
     cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
-    cniBinDir: /var/lib/rancher/k3s/data/current/bin/
+    cniConfFileName: 10-istio-cni.conflist
+    logLevel: info
+    excludeNamespaces:
+      - istio-system
+      - kube-system
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: istio-istiod
+  namespace: default
+spec:
+  install:
+    createNamespace: true
+  targetNamespace: istio-system
+  interval: 10m
+  chart:
+    spec:
+      chart: istiod
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: default
+      interval: 10m
+  dependsOn:
+    - name: istio-base
+    - name: istio-cni
+  values:
+    global:
+      cni:
+        enabled: true
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -84,3 +93,4 @@ spec:
       interval: 10m
   dependsOn:
     - name: istio-base
+    - name: istio-cni
