@@ -24,7 +24,7 @@ metadata:
   name: applications
   namespace: default
 spec:
-  suspend: false
+  suspend: true
   force: false
   wait: true
   interval: 30s
