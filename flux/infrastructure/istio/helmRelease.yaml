@@ -122,10 +122,8 @@ spec:
     - name: istio-cni
     - name: istio-istiod
   values:
+    enabled: true
+    name: istio-egressgateway
+    replicaCount: 1
     ambient:
       enabled: true
-
-    components:
-      egressGateways:
-        - name: istio-egressgateway
-          enabled: true
