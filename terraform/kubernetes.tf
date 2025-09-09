@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "hcloud_token" {
   depends_on = [local_file.kubeconfig]
   metadata {
-    name = "hcloud"
+    name      = "hcloud"
     namespace = "kube-system"
   }
   data = {
