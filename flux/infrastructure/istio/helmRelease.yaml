@@ -121,3 +121,11 @@ spec:
     - name: istio-base
     - name: istio-cni
     - name: istio-istiod
+  values:
+    ambient:
+      enabled: true
+
+    components:
+      egressGateways:
+        - name: istio-egressgateway
+          enabled: true
