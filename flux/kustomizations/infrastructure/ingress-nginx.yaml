@@ -4,7 +4,7 @@ metadata:
   name: ingress-nginx
   namespace: default
 spec:
-  suspend: true
+  suspend: false
   force: false
   wait: true
   interval: 30s

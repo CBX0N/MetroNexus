@@ -5,8 +5,6 @@ metadata:
   name: infrastructure
   namespace: default
 spec:
-  suspend: false
-  force: false
   wait: true
   interval: 30s
   retryInterval: 1m
@@ -24,8 +22,8 @@ metadata:
   name: applications
   namespace: default
 spec:
-  suspend: true
-  force: false
+  dependsOn:
+    - name: infrastructure
   wait: true
   interval: 30s
   retryInterval: 1m
@@ -36,5 +34,3 @@ spec:
     namespace: flux-system
   path: "./flux/kustomizations/applications/"
   prune: true
-  dependsOn:
-    - name: infrastructure
