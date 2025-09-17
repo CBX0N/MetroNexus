@@ -8,12 +8,12 @@ spec:
   install:
     createNamespace: true
   targetNamespace: mediastack
-  interval: 10m
+  interval: 30s
   chart:
     spec:
-      chart: ./helm/JellyStack
+      chart: JellyStack
       sourceRef:
-        kind: GitRepository
-        name: flux-sync
-        namespace: flux-system
-      interval: 10m
+        kind: HelmRepository
+        name: cbxon-helm
+        namespace: default
+      interval: 30s

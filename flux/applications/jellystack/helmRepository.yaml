@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: cert-manager
+  name: cbxon-helm
   namespace: default
 spec:
   interval: 1m
-  url: https://charts.jetstack.io
+  url: https://cbx0n.github.io/charts/
