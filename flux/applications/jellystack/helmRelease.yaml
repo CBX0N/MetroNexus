@@ -11,11 +11,7 @@ spec:
   interval: 30s
   chart:
     spec:
-<<<<<<< HEAD
       chart: jellystack
-=======
-      chart: JellyStack
->>>>>>> e009388cb49998b1803e23db456c98e132c91294
       sourceRef:
         kind: HelmRepository
         name: cbxon-helm
